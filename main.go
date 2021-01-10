@@ -53,7 +53,7 @@ func main() {
 	if err != nil {
 		log.Print(err)
 	}
-	fmt.Println(conn.LocalAddr())
+	fmt.Println("Your local IP: ", conn.LocalAddr(), " For Access use port :3000")
 	http.HandleFunc("/files/", downloadHandler)
 	http.HandleFunc("/", templateHandler)
 	http.ListenAndServe(":3000", nil)
