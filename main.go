@@ -67,23 +67,21 @@ func templateHandler(w http.ResponseWriter, r *http.Request) {
 
 func downloadHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	StoredAs := strings.Replace(r.URL.Path, "/files", "", 1) // file name
-	fmt.Println(StoredAs)
-	data, err := ioutil.ReadFile("." + StoredAs)
+	storedAs := strings.Replace(r.URL.Path, "/files", "", 1) // file name
+	data, err := ioutil.ReadFile("." + storedAs)
 	if err != nil {
 		fmt.Fprint(w, err)
 	}
-	http.ServeContent(w, r, StoredAs, time.Now(), bytes.NewReader(data))
+	http.ServeContent(w, r, storedAs, time.Now(), bytes.NewReader(data))
 }
 
 func makelistoflinks() string {
-	var s string
 	var l []string
 
 	for i := 0; i < len(fileslist); i++ {
 		decorator := "<a href=\"./files/" + fileslist[i] + "\">" + fileslist[i] + "</a>"
 		l = append(l, decorator)
 	}
-	s = strings.Join(l, " ")
+	s := strings.Join(l, " ")
 	return s
 }
